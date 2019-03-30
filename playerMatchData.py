@@ -59,28 +59,20 @@ champion_win_loss_combinations = []
 def champ_win_loss_combo(champ_id, win_loss, teammates):
 	win_loss_Obj = {}
 	teammate_list = teammates.split(",")
+	#teammate_list is an array of string numbers
 	records_Obj = {}
-	if len(champion_win_loss_combinations) == 0:
-		if win_loss == 'win':
-			for teammate in teammate_list:
-				records_Obj[teammate] = [1, 0]
-			win_loss_Obj = { champ_id : records_Obj}
-		if win_loss == 'loss':
-			for teammate in teammate_list:
-				records_Obj[teammate] = [0, 1]
-			win_loss_Obj = { champ_id : records_Obj}
 
-
+	if win_loss == 'win':
+		for teammate in teammate_list:
+			records_Obj[teammate] = [1, 0]
+		win_loss_Obj = { champ_id : records_Obj}
+	if win_loss == 'loss':
+		for teammate in teammate_list:
+			records_Obj[teammate] = [0, 1]
+		win_loss_Obj = { champ_id : records_Obj}
+				
 
 	champion_win_loss_combinations.append(win_loss_Obj)
-
-	print(win_loss_Obj)
-
-
-# check if champ_id exists
-# if it does not, create an object like so 
-#{ "76" : {"12" : [1, 0], "14" : [0, 2], "11" : [1, 1] } }
-
 
 
 for each_match in match_id_list[:50]:
@@ -152,12 +144,10 @@ for each_match in match_id_list[:50]:
 	champ_win_loss_combo(champion_id, win_loss, teammates)
 	c.execute('''INSERT INTO match_info(match_ID, win_loss, champion_id, teammates, enemies) VALUES (?,?,?,?,?)''', (row_data))
 
-## create a list of objects 
-## each object has champion id, ally champion ids, and numbers of wins and losses
-##[ { "76" : {"12" : [1, 0], "14" : [0, 2], "11" : [1, 1] } },
-##  { "11" : {"17" : [2, 1], "23" : [4, 0], "12" : [2, 2] } } ]
 
-## write a function or class to handle champion_win_loss_combo
+print(champion_win_loss_combinations)
+
+
 
 
 
